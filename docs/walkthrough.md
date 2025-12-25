@@ -14,11 +14,11 @@ I have successfully built a premium Roulette simulation platform that allows use
 ## Visual Demonstration
 
 ````carousel
-![European Roulette Simulation Results](./european_results_1766622562473.png)
+![European Roulette Simulation Results](european_results_1766622562473.png)
 <!-- slide -->
-![American Roulette Simulation Results](./american_results_1766622572818.png)
+![American Roulette Simulation Results](american_results_1766622572818.png)
 <!-- slide -->
-![Simulation Demo Video](./roulette_simulation_demo_1766622509690.webp)
+![Simulation Demo Video](roulette_simulation_demo_1766622509690.webp)
 ````
 
 ## Technical Implementation
