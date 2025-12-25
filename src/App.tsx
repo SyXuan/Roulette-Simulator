@@ -11,7 +11,7 @@ import {
   Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { Play, RotateCcw, TrendingUp, Percent, ArrowDownCircle, Wallet, Trash2, Plus } from 'lucide-react';
+import { Play, RotateCcw, TrendingUp, Percent, ArrowDownCircle, Wallet, Trash2 } from 'lucide-react';
 import { runSimulation } from './logic/roulette';
 import type { RouletteType, BetType, Bet, SimulationResult } from './logic/roulette';
 import { RouletteTable } from './components/RouletteTable';
@@ -50,20 +50,42 @@ function App() {
     }, 100);
   };
 
-  const handleToggleBet = (type: BetType, value?: number) => {
+  const handleAddBet = (type: BetType, value?: number) => {
     setActiveBets(prev => {
       const existingIndex = prev.findIndex(b => b.type === type && b.value === value);
       if (existingIndex > -1) {
-        // Remove bet
-        return prev.filter((_, i) => i !== existingIndex);
+        const newBets = [...prev];
+        newBets[existingIndex] = {
+          ...newBets[existingIndex],
+          amount: newBets[existingIndex].amount + betAmount
+        };
+        return newBets;
       } else {
-        // Add bet
         return [...prev, { type, value, amount: betAmount }];
       }
     });
   };
 
-  const removeBet = (index: number) => {
+  const handleRemoveBet = (type: BetType, value?: number) => {
+    setActiveBets(prev => {
+      const existingIndex = prev.findIndex(b => b.type === type && b.value === value);
+      if (existingIndex > -1) {
+        const newBets = [...prev];
+        if (newBets[existingIndex].amount > betAmount) {
+          newBets[existingIndex] = {
+            ...newBets[existingIndex],
+            amount: newBets[existingIndex].amount - betAmount
+          };
+          return newBets;
+        } else {
+          return prev.filter((_, i) => i !== existingIndex);
+        }
+      }
+      return prev;
+    });
+  };
+
+  const removeBetByIndex = (index: number) => {
     setActiveBets(prev => prev.filter((_, i) => i !== index));
   };
 
@@ -135,7 +157,7 @@ function App() {
               <label>Roulette Type</label>
               <select value={rouletteType} onChange={(e) => {
                 setRouletteType(e.target.value as RouletteType);
-                clearBets(); // Clear bets when type changes to avoid invalid 00 bets
+                clearBets();
               }}>
                 <option value="American">American (0, 00)</option>
                 <option value="European">European (0)</option>
@@ -145,7 +167,7 @@ function App() {
 
             <div className="grid grid-cols-2" style={{ marginBottom: '1rem' }}>
               <div>
-                <label>Bet Amount (per chip)</label>
+                <label>Chip Value</label>
                 <input
                   type="number"
                   value={betAmount}
@@ -187,7 +209,7 @@ function App() {
                     <span>{bet.type === 'Straight' ? `Number ${bet.value === 37 ? '00' : bet.value}` : bet.type}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <span>${bet.amount}</span>
-                      <Trash2 size={14} color="#f44336" style={{ cursor: 'pointer' }} onClick={() => removeBet(idx)} />
+                      <Trash2 size={14} color="#f44336" style={{ cursor: 'pointer' }} onClick={() => removeBetByIndex(idx)} />
                     </div>
                   </div>
                 ))}
@@ -213,7 +235,8 @@ function App() {
             <RouletteTable
               type={rouletteType}
               activeBets={activeBets}
-              onToggleBet={handleToggleBet}
+              onAddBet={handleAddBet}
+              onRemoveBet={handleRemoveBet}
             />
           </div>
 
