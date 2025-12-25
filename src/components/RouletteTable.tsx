@@ -1,35 +1,41 @@
 import React from 'react';
-import type { RouletteType, BetType } from '../logic/roulette';
+import type { RouletteType, BetType, Bet } from '../logic/roulette';
 
 interface RouletteTableProps {
     type: RouletteType;
-    selectedBet: BetType;
-    selectedNumber?: number;
-    onSelectBet: (type: BetType, value?: number) => void;
+    activeBets: Bet[];
+    onToggleBet: (type: BetType, value?: number) => void;
 }
 
 const RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 
 export const RouletteTable: React.FC<RouletteTableProps> = ({
     type,
-    selectedBet,
-    selectedNumber,
-    onSelectBet
+    activeBets,
+    onToggleBet
 }) => {
     const isAmerican = type === 'American';
 
+    const getBetForNumber = (num: number) => {
+        return activeBets.find(b => b.type === 'Straight' && b.value === num);
+    };
+
+    const getBetForType = (betType: BetType) => {
+        return activeBets.find(b => b.type === betType);
+    };
+
     const renderNumber = (num: number) => {
         const isRed = RED_NUMBERS.includes(num);
-        const isSelected = selectedBet === 'Straight' && selectedNumber === num;
+        const bet = getBetForNumber(num);
 
         return (
             <div
                 key={num}
-                onClick={() => onSelectBet('Straight', num)}
-                className={`table-cell number ${isRed ? 'red' : 'black'} ${isSelected ? 'selected' : ''}`}
+                onClick={() => onToggleBet('Straight', num)}
+                className={`table-cell number ${isRed ? 'red' : 'black'} ${bet ? 'selected' : ''}`}
             >
                 {num}
-                {isSelected && <div className="chip" />}
+                {bet && <div className="chip" />}
             </div>
         );
     };
@@ -46,21 +52,21 @@ export const RouletteTable: React.FC<RouletteTableProps> = ({
                 {/* Zeros */}
                 <div className="zeros-column">
                     <div
-                        onClick={() => onSelectBet('Straight', 0)}
-                        className={`table-cell zero ${selectedBet === 'Straight' && selectedNumber === 0 ? 'selected' : ''}`}
+                        onClick={() => onToggleBet('Straight', 0)}
+                        className={`table-cell zero ${getBetForNumber(0) ? 'selected' : ''}`}
                         style={{ height: isAmerican ? '50%' : '100%' }}
                     >
                         0
-                        {selectedBet === 'Straight' && selectedNumber === 0 && <div className="chip" />}
+                        {getBetForNumber(0) && <div className="chip" />}
                     </div>
                     {isAmerican && (
                         <div
-                            onClick={() => onSelectBet('Straight', 37)} // Using 37 for 00 internally or handle string
-                            className={`table-cell zero ${selectedBet === 'Straight' && selectedNumber === 37 ? 'selected' : ''}`}
+                            onClick={() => onToggleBet('Straight', 37)} // Using 37 for 00
+                            className={`table-cell zero ${getBetForNumber(37) ? 'selected' : ''}`}
                             style={{ height: '50%' }}
                         >
                             00
-                            {selectedBet === 'Straight' && selectedNumber === 37 && <div className="chip" />}
+                            {getBetForNumber(37) && <div className="chip" />}
                         </div>
                     )}
                 </div>
@@ -71,11 +77,11 @@ export const RouletteTable: React.FC<RouletteTableProps> = ({
                         <div key={rowIndex} className="table-row">
                             {row.map(num => renderNumber(num))}
                             <div
-                                onClick={() => onSelectBet(`Column${3 - rowIndex}` as BetType)}
-                                className={`table-cell side-bet column-bet ${selectedBet === `Column${3 - rowIndex}` ? 'selected' : ''}`}
+                                onClick={() => onToggleBet(`Column${3 - rowIndex}` as BetType)}
+                                className={`table-cell side-bet column-bet ${getBetForType(`Column${3 - rowIndex}` as BetType) ? 'selected' : ''}`}
                             >
                                 2:1
-                                {selectedBet === `Column${3 - rowIndex}` && <div className="chip" />}
+                                {getBetForType(`Column${3 - rowIndex}` as BetType) && <div className="chip" />}
                             </div>
                         </div>
                     ))}
@@ -85,46 +91,46 @@ export const RouletteTable: React.FC<RouletteTableProps> = ({
                 <div className="outside-bets-grid">
                     <div className="dozen-row">
                         <div className="spacer" />
-                        <div onClick={() => onSelectBet('Dozen1')} className={`table-cell side-bet ${selectedBet === 'Dozen1' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Dozen1')} className={`table-cell side-bet ${getBetForType('Dozen1') ? 'selected' : ''}`}>
                             1st 12
-                            {selectedBet === 'Dozen1' && <div className="chip" />}
+                            {getBetForType('Dozen1') && <div className="chip" />}
                         </div>
-                        <div onClick={() => onSelectBet('Dozen2')} className={`table-cell side-bet ${selectedBet === 'Dozen2' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Dozen2')} className={`table-cell side-bet ${getBetForType('Dozen2') ? 'selected' : ''}`}>
                             2nd 12
-                            {selectedBet === 'Dozen2' && <div className="chip" />}
+                            {getBetForType('Dozen2') && <div className="chip" />}
                         </div>
-                        <div onClick={() => onSelectBet('Dozen3')} className={`table-cell side-bet ${selectedBet === 'Dozen3' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Dozen3')} className={`table-cell side-bet ${getBetForType('Dozen3') ? 'selected' : ''}`}>
                             3rd 12
-                            {selectedBet === 'Dozen3' && <div className="chip" />}
+                            {getBetForType('Dozen3') && <div className="chip" />}
                         </div>
                         <div className="spacer" />
                     </div>
 
                     <div className="even-money-row">
                         <div className="spacer" />
-                        <div onClick={() => onSelectBet('Low')} className={`table-cell side-bet ${selectedBet === 'Low' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Low')} className={`table-cell side-bet ${getBetForType('Low') ? 'selected' : ''}`}>
                             1-18
-                            {selectedBet === 'Low' && <div className="chip" />}
+                            {getBetForType('Low') && <div className="chip" />}
                         </div>
-                        <div onClick={() => onSelectBet('Even')} className={`table-cell side-bet ${selectedBet === 'Even' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Even')} className={`table-cell side-bet ${getBetForType('Even') ? 'selected' : ''}`}>
                             Even
-                            {selectedBet === 'Even' && <div className="chip" />}
+                            {getBetForType('Even') && <div className="chip" />}
                         </div>
-                        <div onClick={() => onSelectBet('Red')} className={`table-cell side-bet red-bet ${selectedBet === 'Red' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Red')} className={`table-cell side-bet red-bet ${getBetForType('Red') ? 'selected' : ''}`}>
                             Red
-                            {selectedBet === 'Red' && <div className="chip" />}
+                            {getBetForType('Red') && <div className="chip" />}
                         </div>
-                        <div onClick={() => onSelectBet('Black')} className={`table-cell side-bet black-bet ${selectedBet === 'Black' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Black')} className={`table-cell side-bet black-bet ${getBetForType('Black') ? 'selected' : ''}`}>
                             Black
-                            {selectedBet === 'Black' && <div className="chip" />}
+                            {getBetForType('Black') && <div className="chip" />}
                         </div>
-                        <div onClick={() => onSelectBet('Odd')} className={`table-cell side-bet ${selectedBet === 'Odd' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('Odd')} className={`table-cell side-bet ${getBetForType('Odd') ? 'selected' : ''}`}>
                             Odd
-                            {selectedBet === 'Odd' && <div className="chip" />}
+                            {getBetForType('Odd') && <div className="chip" />}
                         </div>
-                        <div onClick={() => onSelectBet('High')} className={`table-cell side-bet ${selectedBet === 'High' ? 'selected' : ''}`}>
+                        <div onClick={() => onToggleBet('High')} className={`table-cell side-bet ${getBetForType('High') ? 'selected' : ''}`}>
                             19-36
-                            {selectedBet === 'High' && <div className="chip" />}
+                            {getBetForType('High') && <div className="chip" />}
                         </div>
                         <div className="spacer" />
                     </div>

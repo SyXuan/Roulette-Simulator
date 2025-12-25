@@ -11,7 +11,7 @@ import {
   Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { Play, RotateCcw, TrendingUp, Percent, ArrowDownCircle, Wallet } from 'lucide-react';
+import { Play, RotateCcw, TrendingUp, Percent, ArrowDownCircle, Wallet, Trash2, Plus } from 'lucide-react';
 import { runSimulation } from './logic/roulette';
 import type { RouletteType, BetType, Bet, SimulationResult } from './logic/roulette';
 import { RouletteTable } from './components/RouletteTable';
@@ -29,35 +29,46 @@ ChartJS.register(
 
 function App() {
   const [rouletteType, setRouletteType] = useState<RouletteType>('European');
-  const [betType, setBetType] = useState<BetType>('Red');
   const [betAmount, setBetAmount] = useState<number>(10);
   const [iterations, setIterations] = useState<number>(1000);
   const [initialBalance, setInitialBalance] = useState<number>(1000);
-  const [straightValue, setStraightValue] = useState<number>(0);
 
+  const [activeBets, setActiveBets] = useState<Bet[]>([]);
   const [result, setResult] = useState<SimulationResult | null>(null);
   const [isSimulating, setIsSimulating] = useState(false);
 
   const handleSimulate = () => {
+    if (activeBets.length === 0) {
+      alert('Please place at least one bet!');
+      return;
+    }
     setIsSimulating(true);
-    // Use setTimeout to allow UI to show "Simulating..." state if needed
     setTimeout(() => {
-      const bet: Bet = {
-        type: betType,
-        amount: betAmount,
-        value: betType === 'Straight' ? straightValue : undefined
-      };
-      const res = runSimulation(rouletteType, bet, iterations, initialBalance);
+      const res = runSimulation(rouletteType, activeBets, iterations, initialBalance);
       setResult(res);
       setIsSimulating(false);
     }, 100);
   };
 
-  const handleSelectBet = (type: BetType, value?: number) => {
-    setBetType(type);
-    if (value !== undefined) {
-      setStraightValue(value);
-    }
+  const handleToggleBet = (type: BetType, value?: number) => {
+    setActiveBets(prev => {
+      const existingIndex = prev.findIndex(b => b.type === type && b.value === value);
+      if (existingIndex > -1) {
+        // Remove bet
+        return prev.filter((_, i) => i !== existingIndex);
+      } else {
+        // Add bet
+        return [...prev, { type, value, amount: betAmount }];
+      }
+    });
+  };
+
+  const removeBet = (index: number) => {
+    setActiveBets(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const clearBets = () => {
+    setActiveBets([]);
   };
 
   const chartData = useMemo(() => {
@@ -105,6 +116,8 @@ function App() {
     },
   };
 
+  const totalCurrentBet = activeBets.reduce((sum, b) => sum + b.amount, 0);
+
   return (
     <div className="container">
       <header>
@@ -120,45 +133,19 @@ function App() {
 
             <div style={{ marginBottom: '1rem' }}>
               <label>Roulette Type</label>
-              <select value={rouletteType} onChange={(e) => setRouletteType(e.target.value as RouletteType)}>
+              <select value={rouletteType} onChange={(e) => {
+                setRouletteType(e.target.value as RouletteType);
+                clearBets(); // Clear bets when type changes to avoid invalid 00 bets
+              }}>
                 <option value="American">American (0, 00)</option>
                 <option value="European">European (0)</option>
                 <option value="French">French (0 + La Partage)</option>
               </select>
             </div>
 
-            <div style={{ marginBottom: '1rem' }}>
-              <label>Bet Type</label>
-              <select value={betType} onChange={(e) => setBetType(e.target.value as BetType)}>
-                <option value="Red">Red</option>
-                <option value="Black">Black</option>
-                <option value="Even">Even</option>
-                <option value="Odd">Odd</option>
-                <option value="High">High (19-36)</option>
-                <option value="Low">Low (1-18)</option>
-                <option value="Dozen1">1st Dozen (1-12)</option>
-                <option value="Dozen2">2nd Dozen (13-24)</option>
-                <option value="Dozen3">3rd Dozen (25-36)</option>
-                <option value="Straight">Straight Up (Single Number)</option>
-              </select>
-            </div>
-
-            {betType === 'Straight' && (
-              <div style={{ marginBottom: '1rem' }}>
-                <label>Number (0-36)</label>
-                <input
-                  type="number"
-                  min="0"
-                  max="36"
-                  value={straightValue}
-                  onChange={(e) => setStraightValue(parseInt(e.target.value))}
-                />
-              </div>
-            )}
-
             <div className="grid grid-cols-2" style={{ marginBottom: '1rem' }}>
               <div>
-                <label>Bet Amount</label>
+                <label>Bet Amount (per chip)</label>
                 <input
                   type="number"
                   value={betAmount}
@@ -185,9 +172,32 @@ function App() {
               />
             </div>
 
+            <div className="bet-summary card" style={{ background: '#2a2a2a', marginBottom: '1rem', padding: '1rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.9rem', color: '#aaa' }}>Active Bets: {activeBets.length}</span>
+                <button onClick={clearBets} style={{ padding: '0.2rem 0.5rem', fontSize: '0.7rem', background: '#444', color: '#fff' }}>Clear All</button>
+              </div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--gold)' }}>
+                Total Bet: ${totalCurrentBet}
+              </div>
+
+              <div className="bet-list" style={{ marginTop: '1rem', maxHeight: '150px', overflowY: 'auto' }}>
+                {activeBets.map((bet, idx) => (
+                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.3rem 0', borderBottom: '1px solid #333', fontSize: '0.8rem' }}>
+                    <span>{bet.type === 'Straight' ? `Number ${bet.value === 37 ? '00' : bet.value}` : bet.type}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span>${bet.amount}</span>
+                      <Trash2 size={14} color="#f44336" style={{ cursor: 'pointer' }} onClick={() => removeBet(idx)} />
+                    </div>
+                  </div>
+                ))}
+                {activeBets.length === 0 && <div style={{ textAlign: 'center', color: '#555', padding: '1rem' }}>Click the table to place bets</div>}
+              </div>
+            </div>
+
             <button
               onClick={handleSimulate}
-              disabled={isSimulating}
+              disabled={isSimulating || activeBets.length === 0}
               style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
             >
               {isSimulating ? <RotateCcw className="animate-spin" /> : <Play size={18} />}
@@ -202,11 +212,11 @@ function App() {
             <h3 style={{ marginBottom: '1rem', fontSize: '1rem', color: '#aaa' }}>Visual Betting Table</h3>
             <RouletteTable
               type={rouletteType}
-              selectedBet={betType}
-              selectedNumber={straightValue}
-              onSelectBet={handleSelectBet}
+              activeBets={activeBets}
+              onToggleBet={handleToggleBet}
             />
           </div>
+
           {result ? (
             <>
               <div className="grid grid-cols-2 gap-1.5" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
@@ -263,7 +273,7 @@ function App() {
           ) : (
             <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#555', borderStyle: 'dashed' }}>
               <RotateCcw size={48} style={{ marginBottom: '1rem', opacity: 0.2 }} />
-              <p>Configure and run a simulation to see results</p>
+              <p>Place your bets on the table and run a simulation</p>
             </div>
           )}
         </div>

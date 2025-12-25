@@ -1,10 +1,10 @@
 export type RouletteType = 'American' | 'European' | 'French';
 
-export type BetType = 
-  | 'Straight' 
-  | 'Red' | 'Black' 
-  | 'Even' | 'Odd' 
-  | 'High' | 'Low' 
+export type BetType =
+  | 'Straight'
+  | 'Red' | 'Black'
+  | 'Even' | 'Odd'
+  | 'High' | 'Low'
   | 'Dozen1' | 'Dozen2' | 'Dozen3'
   | 'Column1' | 'Column2' | 'Column3';
 
@@ -55,7 +55,7 @@ export class RouletteEngine {
       if (this.type === 'French' && result === '0' && this.isEvenMoneyBet(bet.type)) {
         return bet.amount / 2;
       }
-      
+
       // Straight bet on 0 or 00
       if (bet.type === 'Straight' && bet.value?.toString() === result) {
         return bet.amount * 36;
@@ -103,7 +103,7 @@ export class RouletteEngine {
 
 export function runSimulation(
   type: RouletteType,
-  bet: Bet,
+  bets: Bet[],
   iterations: number,
   initialBalance: number = 1000
 ): SimulationResult {
@@ -114,20 +114,26 @@ export function runSimulation(
   let maxBalance = initialBalance;
   let maxDrawdown = 0;
 
-  for (let i = 0; i < iterations; i++) {
-    if (balance < bet.amount) break; // Out of money
+  const totalBetAmount = bets.reduce((sum, b) => sum + b.amount, 0);
 
-    balance -= bet.amount;
+  for (let i = 0; i < iterations; i++) {
+    if (balance < totalBetAmount) break; // Out of money
+
+    balance -= totalBetAmount;
     const result = engine.spin();
-    const payout = engine.calculatePayout(bet, result);
-    
-    if (payout > 0) {
+
+    let totalPayout = 0;
+    bets.forEach(bet => {
+      totalPayout += engine.calculatePayout(bet, result);
+    });
+
+    if (totalPayout > 0) {
       wins++;
-      balance += payout;
+      balance += totalPayout;
     }
 
     equityCurve.push(balance);
-    
+
     if (balance > maxBalance) {
       maxBalance = balance;
     }

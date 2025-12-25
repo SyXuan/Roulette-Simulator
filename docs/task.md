@@ -17,3 +17,7 @@
     - [x] Design and implement Roulette Table UI <!-- id: 14 -->
     - [x] Integrate table clicks with betting logic <!-- id: 15 -->
     - [x] Add visual feedback (chips/selection) <!-- id: 16 -->
+- [x] Multi-Bet Support <!-- id: 17 -->
+    - [x] Update core logic to handle multiple bets <!-- id: 18 -->
+    - [x] Update UI to manage multiple active bets <!-- id: 19 -->
+    - [x] Update Roulette Table to show multiple chips <!-- id: 20 -->

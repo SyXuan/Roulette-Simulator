@@ -36,6 +36,12 @@ This project aims to build a high-quality web-based Roulette simulation platform
 - **Visual Feedback**: Add a "chip" indicator on the selected bet area and highlight the area on hover.
 - **Responsive Design**: Ensure the table scales well on different screen sizes.
 
+### Multi-Bet Support [NEW]
+- **Logic Update**: Modify `runSimulation` to accept an array of `Bet` objects and calculate the aggregate payout for each spin.
+- **UI State**: Transition from a single `betType` to a `bets` array in `App.tsx`.
+- **Table Interaction**: Update `RouletteTable` to allow toggling bets on and off. Clicking an already selected area will remove the bet.
+- **Bet List UI**: Add a section to display all active bets and allow removing them individually.
+
 ## Verification Plan
 
 ### Automated Tests
