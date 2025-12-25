@@ -49,6 +49,7 @@ h1 {
     padding: 1.5rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     transition: border-color 0.2s ease;
+    overflow: hidden;
 }
 
 .card:hover {
@@ -256,6 +257,10 @@ button:hover {
 }
 
 .chart-container {
-    height: 350px;
     margin-top: 1.5rem;
+}
+
+.chart-wrapper {
+    height: 300px;
+    position: relative;
 }

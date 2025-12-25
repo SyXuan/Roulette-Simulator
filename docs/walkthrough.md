@@ -18,7 +18,7 @@ I have successfully built a premium Roulette simulation platform that allows use
 
 ## Visual Demonstration
 
-![Static Version Interface](static_version_final_1766636444161.png)
+![Static Version (Fixed Chart)](chart_fix_final_v2_1766642128589.png)
 
 ![Multi-Bet Interface](multi_bet_interface_1766623733657.png)
 
@@ -31,7 +31,7 @@ I have successfully built a premium Roulette simulation platform that allows use
 ## Technical Implementation
 
 ### Static Version
-The static version is located in the [html/](../html/) directory. It uses vanilla JavaScript and CSS to provide the same experience as the React version without any build dependencies.
+The static version is located in the [html/](../html/) directory. It uses vanilla JavaScript and CSS to provide the same experience as the React version without any build dependencies. I recently fixed a bug where the chart's fill area would overflow the card container by adding a dedicated `.chart-wrapper` and using `overflow: hidden` on cards.
 
 ### Core Logic
 The simulation engine is located in [roulette.ts](../src/logic/roulette.ts). It handles the probability distributions for each roulette type and calculates payouts accurately, including special rules like *La Partage*.
