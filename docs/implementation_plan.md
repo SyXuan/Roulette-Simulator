@@ -42,6 +42,12 @@ This project aims to build a high-quality web-based Roulette simulation platform
 - **Table Interaction**: Update `RouletteTable` to allow toggling bets on and off. Clicking an already selected area will remove the bet.
 - **Bet List UI**: Add a section to display all active bets and allow removing them individually.
 
+### Incremental Betting Support [NEW]
+- **State Logic Update**: Change `handleToggleBet` to `handleAddBet`. Clicking an area will now add the current `betAmount` to the existing bet for that area.
+- **Visual Feedback**: Update the `chip` in `RouletteTable` to display the total amount bet on that specific spot.
+- **Bet Removal**: Implement a way to remove or decrease bets (e.g., right-click to remove a chip, or a "Clear" button in the bet list).
+- **UI Polish**: Ensure the bet list in the sidebar correctly reflects the updated amounts.
+
 ## Verification Plan
 
 ### Automated Tests

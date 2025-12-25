@@ -21,3 +21,7 @@
     - [x] Update core logic to handle multiple bets <!-- id: 18 -->
     - [x] Update UI to manage multiple active bets <!-- id: 19 -->
     - [x] Update Roulette Table to show multiple chips <!-- id: 20 -->
+- [x] Incremental Betting Support <!-- id: 21 -->
+    - [x] Update UI state to handle incremental bet amounts <!-- id: 22 -->
+    - [x] Update Roulette Table to display bet amounts on chips <!-- id: 23 -->
+    - [x] Add right-click or long-press to remove bets <!-- id: 24 -->

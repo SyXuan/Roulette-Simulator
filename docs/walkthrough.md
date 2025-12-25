@@ -4,6 +4,8 @@ I have successfully built a premium Roulette simulation platform that allows use
 
 ## Features Implemented
 
+- **Incremental Betting**: Click multiple times on the table to add chips. The total amount is displayed on each chip.
+- **Right-Click to Remove**: Right-click on any bet area to decrease the amount or remove the chip.
 - **Multi-Bet Support**: Place multiple chips on the table simultaneously and simulate the combined outcome.
 - **Visual Betting Table**: Interactive virtual table for placing bets by clicking on numbers or zones.
 - **Multiple Roulette Variants**: Support for American (0, 00), European (0), and French (0 + La Partage rule).
@@ -15,15 +17,15 @@ I have successfully built a premium Roulette simulation platform that allows use
 
 ## Visual Demonstration
 
-![Multi-Bet Interface](multi_bet_interface_1766623733657.png)
+![Incremental Betting Demo](incremental_betting_demo_v2_final_1766624586845.webp)
 
-![Visual Betting Table Interface](visual_table_interface_1766623429716.png)
+![Incremental Betting Interface](after_two_clicks_1766624104278.png)
+
+![Multi-Bet Interface](multi_bet_interface_1766623733657.png)
 
 ![European Roulette Simulation Results](european_results_1766622562473.png)
 
 ![American Roulette Simulation Results](american_results_1766622572818.png)
-
-![Simulation Demo Video](roulette_simulation_demo_1766622509690.webp)
 
 ## Technical Implementation
 
