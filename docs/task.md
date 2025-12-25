@@ -13,3 +13,7 @@
 - [x] Verification and Polishing <!-- id: 10 -->
     - [x] Test simulation accuracy <!-- id: 11 -->
     - [x] Final UI polish <!-- id: 12 -->
+- [x] Visual Betting Interface <!-- id: 13 -->
+    - [x] Design and implement Roulette Table UI <!-- id: 14 -->
+    - [x] Integrate table clicks with betting logic <!-- id: 15 -->
+    - [x] Add visual feedback (chips/selection) <!-- id: 16 -->

@@ -14,6 +14,7 @@ import { Line } from 'react-chartjs-2';
 import { Play, RotateCcw, TrendingUp, Percent, ArrowDownCircle, Wallet } from 'lucide-react';
 import { runSimulation } from './logic/roulette';
 import type { RouletteType, BetType, Bet, SimulationResult } from './logic/roulette';
+import { RouletteTable } from './components/RouletteTable';
 
 ChartJS.register(
   CategoryScale,
@@ -50,6 +51,13 @@ function App() {
       setResult(res);
       setIsSimulating(false);
     }, 100);
+  };
+
+  const handleSelectBet = (type: BetType, value?: number) => {
+    setBetType(type);
+    if (value !== undefined) {
+      setStraightValue(value);
+    }
   };
 
   const chartData = useMemo(() => {
@@ -190,6 +198,15 @@ function App() {
 
         {/* Results Dashboard */}
         <div className="col-span-8 grid gap-1.5">
+          <div className="card" style={{ marginBottom: '1.5rem' }}>
+            <h3 style={{ marginBottom: '1rem', fontSize: '1rem', color: '#aaa' }}>Visual Betting Table</h3>
+            <RouletteTable
+              type={rouletteType}
+              selectedBet={betType}
+              selectedNumber={straightValue}
+              onSelectBet={handleSelectBet}
+            />
+          </div>
           {result ? (
             <>
               <div className="grid grid-cols-2 gap-1.5" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>

@@ -28,6 +28,14 @@ This project aims to build a high-quality web-based Roulette simulation platform
     - Main area for the Equity Curve and statistics (Total Profit/Loss, Win Rate, Max Drawdown).
 - **Interactive Elements**: Hover effects on charts, animated transitions when simulation completes.
 
+### Visual Betting Interface [NEW]
+- **Roulette Table Component**: Create a responsive, interactive SVG or CSS Grid-based roulette table.
+    - Support for American (0, 00) and European/French (0) layouts.
+    - Clickable zones for all supported bet types.
+- **State Integration**: Sync the visual selection with the existing `betType` and `straightValue` state.
+- **Visual Feedback**: Add a "chip" indicator on the selected bet area and highlight the area on hover.
+- **Responsive Design**: Ensure the table scales well on different screen sizes.
+
 ## Verification Plan
 
 ### Automated Tests

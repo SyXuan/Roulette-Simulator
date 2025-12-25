@@ -13,19 +13,21 @@ I have successfully built a premium Roulette simulation platform that allows use
 
 ## Visual Demonstration
 
-![European Roulette Simulation Results](european_results_1766622562473.png)
-
-![American Roulette Simulation Results](american_results_1766622572818.png)
-
-![Simulation Demo Video](roulette_simulation_demo_1766622509690.webp)
+````carousel
+![European Roulette Simulation Results](file:///C:/Users/bingsyuan/.gemini/antigravity/brain/69d144d9-fea5-4775-89a9-7649b01afc9b/european_results_1766622562473.png)
+<!-- slide -->
+![American Roulette Simulation Results](file:///C:/Users/bingsyuan/.gemini/antigravity/brain/69d144d9-fea5-4775-89a9-7649b01afc9b/american_results_1766622572818.png)
+<!-- slide -->
+![Simulation Demo Video](file:///C:/Users/bingsyuan/.gemini/antigravity/brain/69d144d9-fea5-4775-89a9-7649b01afc9b/roulette_simulation_demo_1766622509690.webp)
+````
 
 ## Technical Implementation
 
 ### Core Logic
-The simulation engine is located in [roulette.ts](../src/logic/roulette.ts). It handles the probability distributions for each roulette type and calculates payouts accurately, including special rules like *La Partage*.
+The simulation engine is located in [roulette.ts](file:///c:/BingSyuan/Roulette%20Simulation/src/logic/roulette.ts). It handles the probability distributions for each roulette type and calculates payouts accurately, including special rules like *La Partage*.
 
 ### UI Component
-The main application logic and UI are in [App.tsx](../src/App.tsx), utilizing `react-chartjs-2` for the equity curve and `lucide-react` for icons.
+The main application logic and UI are in [App.tsx](file:///c:/BingSyuan/Roulette%20Simulation/src/App.tsx), utilizing `react-chartjs-2` for the equity curve and `lucide-react` for icons.
 
 ### Styling
-The premium look and feel are defined in [index.css](../src/index.css), featuring a radial gradient background and custom gold color palette.
+The premium look and feel are defined in [index.css](file:///c:/BingSyuan/Roulette%20Simulation/src/index.css), featuring a radial gradient background and custom gold color palette.
