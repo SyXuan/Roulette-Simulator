@@ -1,27 +1,35 @@
-# Roulette Simulation Platform
+# Tasks
 
+- [x] Create Static HTML Version <!-- id: 25 -->
+    - [x] Set up `html` directory and basic structure <!-- id: 26 -->
+    - [x] Port simulation logic to `html/logic.js` <!-- id: 27 -->
+    - [x] Port CSS to `html/style.css` <!-- id: 28 -->
+    - [x] Implement UI and Table logic in `html/ui.js` <!-- id: 29 -->
+    - [x] Create `html/index.html` and integrate all components <!-- id: 30 -->
+    - [x] Verify static version functionality <!-- id: 31 -->
 - [x] Project Initialization <!-- id: 0 -->
-    - [x] Initialize Vite React-TS project <!-- id: 1 -->
-    - [x] Install dependencies (Chart.js, Lucide React, etc.) <!-- id: 2 -->
-- [x] Core Simulation Logic <!-- id: 3 -->
-    - [x] Implement Roulette engine (American, European, French) <!-- id: 4 -->
-    - [x] Implement betting logic and payout calculations <!-- id: 5 -->
-- [x] UI Development <!-- id: 6 -->
-    - [x] Design and implement the control panel (Inputs) <!-- id: 7 -->
-    - [x] Design and implement the results dashboard (Charts) <!-- id: 8 -->
-    - [x] Add premium styling and animations <!-- id: 9 -->
-- [x] Verification and Polishing <!-- id: 10 -->
-    - [x] Test simulation accuracy <!-- id: 11 -->
-    - [x] Final UI polish <!-- id: 12 -->
-- [x] Visual Betting Interface <!-- id: 13 -->
-    - [x] Design and implement Roulette Table UI <!-- id: 14 -->
-    - [x] Integrate table clicks with betting logic <!-- id: 15 -->
-    - [x] Add visual feedback (chips/selection) <!-- id: 16 -->
-- [x] Multi-Bet Support <!-- id: 17 -->
-    - [x] Update core logic to handle multiple bets <!-- id: 18 -->
-    - [x] Update UI to manage multiple active bets <!-- id: 19 -->
-    - [x] Update Roulette Table to show multiple chips <!-- id: 20 -->
-- [x] Incremental Betting Support <!-- id: 21 -->
-    - [x] Update UI state to handle incremental bet amounts <!-- id: 22 -->
-    - [x] Update Roulette Table to display bet amounts on chips <!-- id: 23 -->
-    - [x] Add right-click or long-press to remove bets <!-- id: 24 -->
+    - [x] Set up Vite + React + TypeScript environment <!-- id: 1 -->
+    - [x] Install dependencies (chart.js, lucide-react, framer-motion) <!-- id: 2 -->
+    - [x] Clean up boilerplate code <!-- id: 3 -->
+- [x] Core Simulation Logic <!-- id: 4 -->
+    - [x] Implement RouletteEngine class <!-- id: 5 -->
+    - [x] Implement payout calculation logic <!-- id: 6 -->
+    - [x] Implement simulation runner <!-- id: 7 -->
+- [x] UI Development <!-- id: 8 -->
+    - [x] Create main App component with Chart.js <!-- id: 9 -->
+    - [x] Design premium casino-themed UI <!-- id: 10 -->
+- [x] Verification and Polishing <!-- id: 11 -->
+    - [x] Test simulation accuracy <!-- id: 12 -->
+    - [x] Final UI polish <!-- id: 13 -->
+- [x] Visual Betting Interface <!-- id: 14 -->
+    - [x] Design and implement Roulette Table UI <!-- id: 15 -->
+    - [x] Integrate table clicks with betting logic <!-- id: 16 -->
+    - [x] Add visual feedback (chips/selection) <!-- id: 17 -->
+- [x] Multi-Bet Support <!-- id: 18 -->
+    - [x] Update core logic to handle multiple bets <!-- id: 19 -->
+    - [x] Update UI to manage multiple active bets <!-- id: 20 -->
+    - [x] Update Roulette Table to show multiple chips <!-- id: 21 -->
+- [x] Incremental Betting Support <!-- id: 22 -->
+    - [x] Update UI state to handle incremental bet amounts <!-- id: 23 -->
+    - [x] Update Roulette Table to display bet amounts on chips <!-- id: 24 -->
+    - [x] Add right-click or long-press to remove bets <!-- id: 25 -->

@@ -4,6 +4,7 @@ I have successfully built a premium Roulette simulation platform that allows use
 
 ## Features Implemented
 
+- **Static HTML Version**: A standalone, pure HTML/JS version for maximum portability.
 - **Incremental Betting**: Click multiple times on the table to add chips. The total amount is displayed on each chip.
 - **Right-Click to Remove**: Right-click on any bet area to decrease the amount or remove the chip.
 - **Multi-Bet Support**: Place multiple chips on the table simultaneously and simulate the combined outcome.
@@ -17,13 +18,20 @@ I have successfully built a premium Roulette simulation platform that allows use
 
 ## Visual Demonstration
 
+![Static Version Interface](static_version_final_1766636444161.png)
+
 ![Multi-Bet Interface](multi_bet_interface_1766623733657.png)
 
 ![European Roulette Simulation Results](european_results_1766622562473.png)
 
 ![American Roulette Simulation Results](american_results_1766622572818.png)
 
+![Simulation Demo Video](roulette_simulation_demo_1766622509690.webp)
+
 ## Technical Implementation
+
+### Static Version
+The static version is located in the [html/](../html/) directory. It uses vanilla JavaScript and CSS to provide the same experience as the React version without any build dependencies.
 
 ### Core Logic
 The simulation engine is located in [roulette.ts](../src/logic/roulette.ts). It handles the probability distributions for each roulette type and calculates payouts accurately, including special rules like *La Partage*.

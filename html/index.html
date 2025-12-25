@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette Simulator - Static Version</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Roulette Simulator</h1>
+            <p style="color: #aaa;">Test your strategies with high-fidelity simulation</p>
+        </header>
+
+        <div class="grid grid-cols-12">
+            <!-- Control Panel -->
+            <div class="col-span-4 grid">
+                <div class="card">
+                    <h2 style="color: var(--gold); margin-bottom: 1rem; font-size: 1.2rem;">Configuration</h2>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label>Roulette Type</label>
+                        <select id="roulette-type">
+                            <option value="American">American (0, 00)</option>
+                            <option value="European" selected>European (0)</option>
+                            <option value="French">French (0 + La Partage)</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-2" style="margin-bottom: 1rem;">
+                        <div>
+                            <label>Chip Value</label>
+                            <input type="number" id="chip-value" value="10">
+                        </div>
+                        <div>
+                            <label>Initial Balance</label>
+                            <input type="number" id="initial-balance" value="1000">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label>Simulations</label>
+                        <input type="number" id="iterations" step="100" value="1000">
+                    </div>
+
+                    <div class="card" style="background: #2a2a2a; margin-bottom: 1rem; padding: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.9rem; color: #aaa;">Active Bets: <span id="active-bets-count">0</span></span>
+                            <button id="clear-btn" style="padding: 0.2rem 0.5rem; font-size: 0.7rem; width: auto;">Clear All</button>
+                        </div>
+                        <div style="font-size: 1.1rem; font-weight: bold; color: var(--gold);">
+                            Total Bet: <span id="total-bet-amount">$0</span>
+                        </div>
+                        <div id="bet-list" class="bet-list"></div>
+                    </div>
+
+                    <button id="run-btn">Run Simulation</button>
+                </div>
+            </div>
+
+            <!-- Results Dashboard -->
+            <div class="col-span-8 grid">
+                <div class="card">
+                    <h3 style="margin-bottom: 1rem; font-size: 1rem; color: #aaa;">Visual Betting Table</h3>
+                    <div class="roulette-table-container">
+                        <div class="roulette-table-grid"></div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #888; margin-top: 1rem; text-align: center;">
+                        Tip: Left-click to add chips, Right-click to remove chips.
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="card stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div>
+                            <label>Final Balance</label>
+                            <div id="final-balance" style="font-size: 1.5rem; font-weight: bold;">$0</div>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div>
+                            <label>Total Profit/Loss</label>
+                            <div id="total-profit" style="font-size: 1.5rem; font-weight: bold;">$0</div>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon">%</div>
+                        <div>
+                            <label>Win Rate</label>
+                            <div id="win-rate" style="font-size: 1.5rem; font-weight: bold;">0%</div>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon">📉</div>
+                        <div>
+                            <label>Max Drawdown</label>
+                            <div id="max-drawdown" style="font-size: 1.5rem; font-weight: bold;">$0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card chart-container">
+                    <h3 style="margin-bottom: 1rem; font-size: 1rem; color: #aaa;">Equity Curve</h3>
+                    <canvas id="equity-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="logic.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>
