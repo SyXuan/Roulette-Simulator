@@ -1,0 +1,15 @@
+# Roulette Simulation Platform
+
+- [x] Project Initialization <!-- id: 0 -->
+    - [x] Initialize Vite React-TS project <!-- id: 1 -->
+    - [x] Install dependencies (Chart.js, Lucide React, etc.) <!-- id: 2 -->
+- [x] Core Simulation Logic <!-- id: 3 -->
+    - [x] Implement Roulette engine (American, European, French) <!-- id: 4 -->
+    - [x] Implement betting logic and payout calculations <!-- id: 5 -->
+- [x] UI Development <!-- id: 6 -->
+    - [x] Design and implement the control panel (Inputs) <!-- id: 7 -->
+    - [x] Design and implement the results dashboard (Charts) <!-- id: 8 -->
+    - [x] Add premium styling and animations <!-- id: 9 -->
+- [x] Verification and Polishing <!-- id: 10 -->
+    - [x] Test simulation accuracy <!-- id: 11 -->
+    - [x] Final UI polish <!-- id: 12 -->
