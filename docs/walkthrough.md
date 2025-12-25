@@ -17,10 +17,6 @@ I have successfully built a premium Roulette simulation platform that allows use
 
 ## Visual Demonstration
 
-![Incremental Betting Demo](incremental_betting_demo_v2_final_1766624586845.webp)
-
-![Incremental Betting Interface](after_two_clicks_1766624104278.png)
-
 ![Multi-Bet Interface](multi_bet_interface_1766623733657.png)
 
 ![European Roulette Simulation Results](european_results_1766622562473.png)
